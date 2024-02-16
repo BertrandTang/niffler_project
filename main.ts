@@ -1,17 +1,10 @@
-import { Z } from "https://deno.land/x/zod/mod.ts"
+import { createServer } from  "./src/webserver/webserver.ts";
+import { load } from "https://deno.land/std@0.216.0/dotenv/mod.ts";
+import { Env } from "./src/common/env.ts";
 
-interface Person {
-    firstName: string;
-    lastName: string;
-  }
-  
-  function sayHello(p: Person): string {
-    return `Hello, ${p.firstName}!`;
-  }
-  
-  const ada: Person = {
-    firstName: "Ada",
-    lastName: "Lovelace",
-  };
-  
-  console.log(sayHello(ada));
+
+await load({export: true})
+
+const port = Env.getEnvVarAsNumber("PORT");
+
+createServer(port);
